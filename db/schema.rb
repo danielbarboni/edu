@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227172959) do
+ActiveRecord::Schema.define(version: 20180227184148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 20180227172959) do
     t.index ["state_id"], name: "index_cities_on_state_id"
   end
 
+  create_table "schools", force: :cascade do |t|
+    t.string "name"
+    t.string "cnpj"
+    t.string "addredd"
+    t.bigint "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_schools_on_city_id"
+  end
+
   create_table "states", force: :cascade do |t|
     t.string "postal_abbreviation"
     t.datetime "created_at", null: false
@@ -61,4 +71,5 @@ ActiveRecord::Schema.define(version: 20180227172959) do
   end
 
   add_foreign_key "cities", "states"
+  add_foreign_key "schools", "cities"
 end
